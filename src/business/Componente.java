@@ -17,7 +17,6 @@ public class Componente {
 	private float valor;
 	private int peso;
 	private int id;
-	private ArrayList<Pacote> pacotes;
 	private ArrayList<Componente> dependencias;
 	private ArrayList<Componente> incompativeis;
 
@@ -25,15 +24,13 @@ public class Componente {
 	public Componente() {
 		this.dependencias = new ArrayList<>();
 		this.incompativeis = new ArrayList<>();
-		this.pacotes = new ArrayList<>();
 	}
 
-	public Componente(String nome, float valor, int peso, int id, ArrayList<Pacote> pacotes, ArrayList<Componente> dependencias, ArrayList<Componente> incompativeis) {
+	public Componente(String nome, float valor, int peso, int id, ArrayList<Componente> dependencias, ArrayList<Componente> incompativeis) {
 		this.nome = nome;
 		this.valor = valor;
 		this.peso = peso;
 		this.id = id;
-		this.pacotes = pacotes;
 		this.dependencias = dependencias;
 		this.incompativeis = incompativeis;
 	}
@@ -70,14 +67,6 @@ public class Componente {
 		this.id = id;
 	}
 
-	public ArrayList<Pacote> getPacotes() {
-		return this.pacotes;
-	}
-
-	public void setPacotes(ArrayList<Pacote> pacotes) {
-		this.pacotes = pacotes;
-	}
-
 	public ArrayList<Componente> getDependencias() {
 		return this.dependencias;
 	}
@@ -102,7 +91,7 @@ public class Componente {
 			return false;
 		}
 		Componente componente = (Componente) o;
-		return Objects.equals(nome, componente.nome) && valor == componente.valor && peso == componente.peso && id == componente.id && Objects.equals(pacotes, componente.pacotes) && Objects.equals(dependencias, componente.dependencias) && Objects.equals(incompativeis, componente.incompativeis);
+		return Objects.equals(nome, componente.nome) && valor == componente.valor && peso == componente.peso && id == componente.id && Objects.equals(dependencias, componente.dependencias) && Objects.equals(incompativeis, componente.incompativeis);
 	}
 
 	@Override
@@ -112,7 +101,6 @@ public class Componente {
 			", valor='" + getValor() + "'" +
 			", peso='" + getPeso() + "'" +
 			", id='" + getId() + "'" +
-			", pacotes='" + getPacotes() + "'" +
 			", dependencias='" + getDependencias() + "'" +
 			", incompativeis='" + getIncompativeis() + "'" +
 			"}";
@@ -126,19 +114,11 @@ public class Componente {
 		this.incompativeis.add(comp);
 	}
 
-	public void addPacote(Pacote pack) {
-		this.pacotes.add(pack);
-	}
-
 	public void removeDependente(Componente comp){
 		this.dependencias.remove(comp);
 	}
 
 	public void removeIncompativel(Componente comp){
 		this.incompativeis.remove(comp);
-	}
-
-	public void removePacote(Pacote pack){
-		this.pacotes.remove(pack);
 	}
 }

@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import business.Componente;
@@ -76,7 +76,6 @@ public class ComponenteDAO implements Map<Integer, Componente> {
     @Override
     public Componente get(Object key) {
         String query = "Select * from Componente where id = ?";
-        String query1 = "Select fk_Pacote_id"
         String query2 = "Select * from Dependente where fk_Componente_id = ?";
         String query3 = "Select * from Incompativel where fk_Componente_id = ?";
         Componente c = null;
@@ -99,14 +98,14 @@ public class ComponenteDAO implements Map<Integer, Componente> {
                 ResultSet rs2 = stmt.executeQuery();
 
                 while(rs2.next())
-                    c.addDependente(this.get(rs2.getInt("fk_Componente_id_")));
+                    c.addDependente(this.get_lite(rs2.getInt("fk_Componente_id_")));
 
                 stmt = con.prepareStatement(query3);
                 stmt.setInt(1, (int) key);
                 ResultSet rs3 = stmt.executeQuery();
     
                 while(rs3.next())
-                    c.addIncompativel(this.get(rs3.getInt("fk_Componente_id_")));
+                    c.addIncompativel(this.get_lite(rs3.getInt("fk_Componente_id_")));
 
                 rs2.close();
                 rs3.close();
@@ -119,18 +118,125 @@ public class ComponenteDAO implements Map<Integer, Componente> {
         } catch(SQLException e){
             e.printStackTrace();
         } finally{
-            return p;
+            return c;
+        }
+    }
+
+    private Componente get_lite(Object key){
+        String query = "Select * from Componente where id = ?";
+        Componente c = null;
+
+        try {
+            Connection con = DBConnection.connect();
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, (int) key);
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()){
+                c = new Componente();
+                c.setNome(rs.getString("nome"));               
+                c.setValor(rs.getFloat("valor"));
+                c.setId(rs.getInt("id"));
+                c.setPeso(rs.getInt("peso"));
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        } finally{
+            return c;
         }
     }
 
     @Override
     public Componente put(Integer key, Componente value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO Componente (nome,id,valor,peso) values(?,?,?,?);";
+        String query2 = "Insert into Dependente (fk_Componente_id, fk_Componente_id_) values (?,?);";
+        String query3 = "Insert into Incompativel (fk_Componente_id, fk_Componente_id_) values (?,?);";
+        Componente c = this.remove(key);
+
+        try{
+            Connection con = DBConnection.connect();
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1,value.getNome());
+            stmt.setInt(2,value.getId());
+            stmt.setFloat(3,value.getValor());
+            stmt.setInt(4, value.getPeso());
+            stmt.executeQuery();
+
+            for(Componente comp : value.getDependencias()){
+                stmt = con.prepareStatement(query2);
+                stmt.setInt(1, comp.getId());
+                stmt.setInt(2, value.getId());
+                stmt.executeQuery();
+            }
+
+            for(Componente comp : value.getIncompativeis()){
+                stmt = con.prepareStatement(query3);
+                stmt.setInt(1, comp.getId());
+                stmt.setInt(2, value.getId());
+                stmt.executeQuery();
+            }
+
+            stmt.close();
+            con.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            return c;
+        }
     }
 
     @Override
     public Componente remove(Object key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "DELETE FROM Componente WHERE id = ?";
+        Componente c = null;
+
+        try {
+            c = this.get(key);
+
+            Connection con = DBConnection.connect();
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, (int) key);
+            ResultSet rs = stmt.executeQuery();
+
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch(SQLException e){
+            e.printStackTrace();
+        } finally{
+            return c;
+        }
+    }
+
+    @Override
+    public ArrayList<Componente> values() {
+        ArrayList<Componente> res = new ArrayList<>();
+        String query = "SELECT id FROM Componente";
+
+        try{ 
+            Connection con = DBConnection.connect();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);              
+            
+            while(rs.next()) {
+                Componente c = this.get(rs.getInt("id"));
+                res.add(c);
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+
+        }catch(SQLException | ClassNotFoundException ex){
+            ex.printStackTrace();
+        } finally{
+            return res;
+        }
     }
 
     @Override
@@ -145,11 +251,6 @@ public class ComponenteDAO implements Map<Integer, Componente> {
 
     @Override
     public Set<Integer> keySet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Collection<Componente> values() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
