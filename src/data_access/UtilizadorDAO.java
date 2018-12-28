@@ -14,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -25,7 +24,6 @@ public class UtilizadorDAO implements Map<String,Utilizador>{
 
      @Override
     public ArrayList<Utilizador> values() {
-
         ArrayList<Utilizador> res = new ArrayList<>();
         String query = "SELECT * FROM Utilizador";
 
@@ -55,13 +53,13 @@ public class UtilizadorDAO implements Map<String,Utilizador>{
 
     @Override
     public Utilizador get(Object key) {
-        String query = "Select * from Utilizador where username = ?";
+        String query = "Select * from Utilizador where user = ?";
         Utilizador cp = null;
 
         try {
             Connection con = DBConnection.connect();
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1, (int) key);
+            stmt.setString(1, (String) key);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
@@ -91,13 +89,12 @@ public class UtilizadorDAO implements Map<String,Utilizador>{
         try{
             Connection con = DBConnection.connect();
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setString(1,c.getUser());
-            stmt.setString(2,c.getPass());
-            stmt.setString(3,c.getNome());
-            stmt.setString(4,c.getTipo());
-            ResultSet rs = stmt.executeQuery();
+            stmt.setString(1,value.getUser());
+            stmt.setString(2,value.getPass());
+            stmt.setString(3,value.getNome());
+            stmt.setString(4,value.getTipo());
+            stmt.executeQuery();
 
-            rs.close();
             stmt.close();
             con.close();
         } catch (SQLException e){
@@ -160,7 +157,7 @@ public class UtilizadorDAO implements Map<String,Utilizador>{
 
     @Override
     public Utilizador remove(Object key) {
-        String query = "DELETE FROM Utilizador WHERE username = ?";
+        String query = "DELETE FROM Utilizador WHERE user = ?";
         Utilizador cp = null;
 
         try {

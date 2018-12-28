@@ -18,9 +18,9 @@ public class Cliente {
 	private String morada;
 	private ArrayList<Pedido> pedidos;
 
-
-
+	
 	public Cliente() {
+		this.pedidos = new ArrayList<>();
 
 	}
 

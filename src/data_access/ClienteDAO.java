@@ -8,6 +8,7 @@ package data_access;
 import java.util.Map;
 import java.util.Set;
 import business.Cliente;
+import business.Pedido;
 import dbconnect.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +22,32 @@ import java.util.ArrayList;
  * @author leonardo
  */
 public class ClienteDAO implements Map<String, Cliente> {
+
+    private ArrayList<Pedido> getPedidos(String nif){
+        ArrayList<Pedido> res = new ArrayList<>();
+        String query = "select * from Pedido where fk_Cliente_nif = ?";
+
+        try{
+            Connection con = DBConnection.connect();
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, nif);
+            ResultSet rs = stmt.executeQuery();
+
+            PedidoDAO pedido_dao = new PedidoDAO();
+
+            while(rs.next()){
+                res.add(pedido_dao.get(rs.getInt("id")));
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch(SQLException | ClassNotFoundException er){
+            er.printStackTrace();
+        } finally{
+            return res;
+        }
+    }
 
         
     @Override
@@ -77,13 +104,13 @@ public class ClienteDAO implements Map<String, Cliente> {
 
     @Override
     public Cliente get(Object key) {
-        String query = "Select * from Cliente where numClt = ?";
+        String query = "Select * from Cliente where nif = ?";
         Cliente cp = null;
 
         try {
             Connection con = DBConnection.connect();
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1, (int) key);
+            stmt.setString(1, (String) key);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
@@ -91,6 +118,7 @@ public class ClienteDAO implements Map<String, Cliente> {
                 cp.setNome(rs.getString("nome"));                
                 cp.setNif(rs.getString("nif"));
                 cp.setMorada(rs.getString("morada"));
+                cp.setPedidos(this.getPedidos((String) key));
             }
 
             rs.close();
@@ -115,9 +143,13 @@ public class ClienteDAO implements Map<String, Cliente> {
             stmt.setString(1,value.getNome());
             stmt.setString(2,value.getNif());
             stmt.setString(3,value.getMorada());
-            ResultSet rs = stmt.executeQuery();
+            stmt.executeQuery();
 
-            rs.close();
+            PedidoDAO pedido_dao = new PedidoDAO();
+
+            for(Pedido order : value.getPedidos())
+                pedido_dao.put(order.getId(), order);
+          
             stmt.close();
             con.close();
         } catch (SQLException e){
@@ -129,7 +161,7 @@ public class ClienteDAO implements Map<String, Cliente> {
 
     @Override
     public Cliente remove(Object key) {
-        String query = "DELETE FROM Cliente WHERE numClt = ?";
+        String query = "DELETE FROM Cliente WHERE nif = ?";
         Cliente cp = null;
 
         try {
@@ -137,10 +169,9 @@ public class ClienteDAO implements Map<String, Cliente> {
 
             Connection con = DBConnection.connect();
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1, (int) key);
-            ResultSet rs = stmt.executeQuery();
+            stmt.setString(1, (String) key);
+            stmt.executeQuery();
 
-            rs.close();
             stmt.close();
             con.close();
         } catch(SQLException e){

@@ -25,6 +25,10 @@ public class Pedido {
 
 
 	public Pedido() {
+		this.cliente = null;
+		this.pacote = null;
+		this.componentes = new ArrayList<>();
+		this.datai = LocalDateTime.now();
 	}
 
 	public Pedido(String estado, float valor, int id, LocalDateTime datai, LocalDateTime dataf, Cliente cliente, Pacote pacote, ArrayList<Componente> componentes) {

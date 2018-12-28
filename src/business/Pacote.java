@@ -20,6 +20,7 @@ public class Pacote {
 
 
 	public Pacote() {
+		this.componentes = new ArrayList<>();
 	}
 
 	public Pacote(int id, float valor, String nome, ArrayList<Componente> componentes) {

@@ -3,32 +3,34 @@ CREATE SCHEMA BuildMovil;
 
 USE BuildMovil;
 
+
 CREATE TABLE Cliente (
-    nif CHAR(9) PRIMARY KEY,
     nome VARCHAR(50),
+    nif CHAR(9) PRIMARY KEY,
     morada VARCHAR(50)
 );
 
 CREATE TABLE Utilizador (
+    tipo VARCHAR(50),
     user VARCHAR(50) PRIMARY KEY,
     pass VARCHAR(50),
-    tipo VARCHAR(50),
     nome VARCHAR(50)
 );
 
 CREATE TABLE Pedido (
     estado VARCHAR(50),
-    valor INT,
-    id INT PRIMARY KEY,
-    data_inicial DATE,
     data_final DATE,
-    fk_Cliente_nif CHAR(9)
+    data_inicial DATE,
+    id INT PRIMARY KEY,
+    valor INT,
+    fk_Cliente_nif CHAR(9),
+    fk_Pacote_id INT
 );
 
 CREATE TABLE Pacote (
-    id INT PRIMARY KEY,
+    nome VARCHAR(50),
     valor FLOAT,
-    nome VARCHAR(50)
+    id INT PRIMARY KEY
 );
 
 CREATE TABLE Componente (
@@ -63,6 +65,11 @@ ALTER TABLE Pedido ADD CONSTRAINT FK_Pedido_2
     REFERENCES Cliente (nif)
     ON DELETE RESTRICT;
  
+ALTER TABLE Pedido ADD CONSTRAINT FK_Pedido_3
+    FOREIGN KEY (fk_Pacote_id)
+    REFERENCES Pacote (id)
+    ON DELETE SET NULL;
+ 
 ALTER TABLE Incompativel ADD CONSTRAINT FK_Incompativel_1
     FOREIGN KEY (fk_Componente_id)
     REFERENCES Componente (id)
@@ -91,7 +98,7 @@ ALTER TABLE Pacote_Componente ADD CONSTRAINT FK_Pacote_Componente_1
 ALTER TABLE Pacote_Componente ADD CONSTRAINT FK_Pacote_Componente_2
     FOREIGN KEY (fk_Pacote_id)
     REFERENCES Pacote (id)
-    ON DELETE SET NULL;
+    ON DELETE CASCADE;
  
 ALTER TABLE Pedido_Componente ADD CONSTRAINT FK_Pedido_Componente_1
     FOREIGN KEY (fk_Componente_id)
@@ -101,4 +108,4 @@ ALTER TABLE Pedido_Componente ADD CONSTRAINT FK_Pedido_Componente_1
 ALTER TABLE Pedido_Componente ADD CONSTRAINT FK_Pedido_Componente_2
     FOREIGN KEY (fk_Pedido_id)
     REFERENCES Pedido (id)
-    ON DELETE SET NULL;
+    ON DELETE CASCADE;

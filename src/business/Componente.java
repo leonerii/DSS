@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Componente {
 	private String nome;
 	private float valor;
-	private float peso;
+	private int peso;
 	private int id;
 	private ArrayList<Pacote> pacotes;
 	private ArrayList<Componente> dependencias;
@@ -23,9 +23,12 @@ public class Componente {
 
 
 	public Componente() {
+		this.dependencias = new ArrayList<>();
+		this.incompativeis = new ArrayList<>();
+		this.pacotes = new ArrayList<>();
 	}
 
-	public Componente(String nome, float valor, float peso, int id, ArrayList<Pacote> pacotes, ArrayList<Componente> dependencias, ArrayList<Componente> incompativeis) {
+	public Componente(String nome, float valor, int peso, int id, ArrayList<Pacote> pacotes, ArrayList<Componente> dependencias, ArrayList<Componente> incompativeis) {
 		this.nome = nome;
 		this.valor = valor;
 		this.peso = peso;
@@ -51,11 +54,11 @@ public class Componente {
 		this.valor = valor;
 	}
 
-	public float getPeso() {
+	public int getPeso() {
 		return this.peso;
 	}
 
-	public void setPeso(float peso) {
+	public void setPeso(int peso) {
 		this.peso = peso;
 	}
 
