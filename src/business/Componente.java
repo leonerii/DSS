@@ -17,6 +17,7 @@ public class Componente {
 	private float valor;
 	private int peso;
 	private int id;
+        private int quantidade;
 	private ArrayList<Componente> dependencias;
 	private ArrayList<Componente> incompativeis;
 
@@ -42,6 +43,14 @@ public class Componente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+        public int getQuantidade() {
+            return this.quantidade;
+        }
+
+        public void setQuantidade(int quantidade) {
+            this.quantidade = quantidade;
+        }
 
 	public float getValor() {
 		return this.valor;

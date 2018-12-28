@@ -5,6 +5,8 @@
  */
 package business;
 
+import java.util.ArrayList;
+
 import data_access.*;
 
 /**
@@ -18,15 +20,31 @@ public class BuildMovil {
 	private ComponenteDAO componentes;
 	private PedidoDAO pedidos;
 
-	public void addComponente(int id) {
-		throw new UnsupportedOperationException();
+	public BuildMovil (){
+		this.clientes = new ClienteDAO();
+		this.utilizadores = new UtilizadorDAO();
+		this.pacotes = new PacoteDAO();
+		this.componentes = new ComponenteDAO();
+		this.pedidos = new PedidoDAO();
 	}
 
-	public void addPacote(int id) {
-		throw new UnsupportedOperationException();
+	public void addComponente(int id, String nome, float valor, int peso, int[] dep, int[] inc) {
+		Componente comp = new Componente();
+		comp.setId(id);
+		comp.setNome(nome);
+		comp.setPeso(peso);
+		comp.setValor(valor);
+
+		for(int i : dep)
+			comp.addDependente(this.componentes.get_lite(i));
+
+		for(int i : inc)
+			comp.addIncompativel(this.componentes.get_lite(i));
+
+		this.componentes.put(id, comp);
 	}
 
-	public Pedido makePedido() {
+	public void addPacote(int id, float valor, String nome, int[] comp) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -59,10 +77,6 @@ public class BuildMovil {
 	}
 
 	public Utilizador getUtilizador(String user) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Pacote makePacote() {
 		throw new UnsupportedOperationException();
 	}
 

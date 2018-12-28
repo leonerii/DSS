@@ -37,7 +37,8 @@ CREATE TABLE Componente (
     nome VARCHAR(50),
     id INT PRIMARY KEY,
     peso INT,
-    valor FLOAT
+    valor FLOAT,
+    quantidade INT
 );
 
 CREATE TABLE Incompativel (

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<DIAGRAMA ID="1" TIPO="tpLogico" UniversalUnicID="ACB2-93-82F-D4-2C1-7-53">
+<DIAGRAMA ID="1" TIPO="tpLogico" UniversalUnicID="6D3D-6B-5FFF-61-2816-A8-55">
 <InfoDiagrama ID="1">
 <Versao Valor="3.2.0"/>
 <Autores/>
@@ -10,7 +10,7 @@
 <Alinhamento_h Valor="60"/>
 <Zoom Valor="100"/>
 <Fonte Estilo="1" Nome="Arial" Tamanho="12"/>
-<Localizacao Left="34" Top="120"/>
+<Localizacao Left="129" Top="143"/>
 <Realce Valor="false"/>
 <SeparatorSQL Valor=";"/>
 <Prefixo Valor=""/>
@@ -376,7 +376,7 @@
 </Constraints>
 </Tabela>
 <Tabela ID="6">
-<Bounds Height="150" Left="578" Top="569" Width="150"/>
+<Bounds Height="172" Left="578" Top="569" Width="150"/>
 <DisablePainted Valor="false"/>
 <Texto>Componente</Texto>
 <Observacao/>
@@ -435,6 +435,16 @@
 <Campo>
 <Texto>valor</Texto>
 <Tipo>FLOAT</Tipo>
+<Complemento/>
+<Dicionario/>
+<Observacao/>
+<Key Valor="false"/>
+<Fkey Valor="false"/>
+<Unique Valor="false"/>
+</Campo>
+<Campo>
+<Texto>quantidade</Texto>
+<Tipo>INT</Tipo>
 <Complemento/>
 <Dicionario/>
 <Observacao/>
@@ -544,13 +554,13 @@
 <Largura Valor="1"/>
 <Ligacoes PontaA="6" PontaB="7"/>
 <Pontos>
-<Ponto Left="725" Top="643"/>
+<Ponto Left="726" Top="643"/>
 <Ponto Left="840" Top="643"/>
 <Ponto Left="840" Top="643"/>
 <Ponto Left="954" Top="643"/>
 </Pontos>
 <LogicoCardinalidade ID="9">
-<Bounds Height="15" Left="735" Top="630" Width="35"/>
+<Bounds Height="15" Left="736" Top="630" Width="35"/>
 <DisablePainted Valor="false"/>
 <Texto>Cardinalidade_1</Texto>
 <Observacao/>
@@ -665,12 +675,12 @@
 <Largura Valor="1"/>
 <Ligacoes PontaA="6" PontaB="11"/>
 <Pontos>
-<Ponto Left="660" Top="716"/>
+<Ponto Left="660" Top="739"/>
 <Ponto Left="660" Top="826"/>
 <Ponto Left="954" Top="826"/>
 </Pontos>
 <LogicoCardinalidade ID="13">
-<Bounds Height="15" Left="627" Top="726" Width="35"/>
+<Bounds Height="15" Left="627" Top="749" Width="35"/>
 <DisablePainted Valor="false"/>
 <Texto>Cardinalidade_3</Texto>
 <Observacao/>
@@ -1144,13 +1154,13 @@
 <Largura Valor="1"/>
 <Ligacoes PontaA="6" PontaB="7"/>
 <Pontos>
-<Ponto Left="725" Top="622"/>
+<Ponto Left="726" Top="622"/>
 <Ponto Left="840" Top="622"/>
 <Ponto Left="840" Top="622"/>
 <Ponto Left="954" Top="622"/>
 </Pontos>
 <LogicoCardinalidade ID="36">
-<Bounds Height="15" Left="735" Top="609" Width="35"/>
+<Bounds Height="15" Left="736" Top="609" Width="35"/>
 <DisablePainted Valor="false"/>
 <Texto>Cardinalidade_17</Texto>
 <Observacao/>
@@ -1192,13 +1202,13 @@
 <Largura Valor="1"/>
 <Ligacoes PontaA="6" PontaB="11"/>
 <Pontos>
-<Ponto Left="725" Top="664"/>
+<Ponto Left="726" Top="664"/>
 <Ponto Left="840" Top="664"/>
 <Ponto Left="840" Top="801"/>
 <Ponto Left="954" Top="801"/>
 </Pontos>
 <LogicoCardinalidade ID="39">
-<Bounds Height="15" Left="735" Top="651" Width="35"/>
+<Bounds Height="15" Left="736" Top="651" Width="35"/>
 <DisablePainted Valor="false"/>
 <Texto>Cardinalidade_19</Texto>
 <Observacao/>

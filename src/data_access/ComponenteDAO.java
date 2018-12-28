@@ -122,7 +122,7 @@ public class ComponenteDAO implements Map<Integer, Componente> {
         }
     }
 
-    private Componente get_lite(Object key){
+    public Componente get_lite(Object key){
         String query = "Select * from Componente where id = ?";
         Componente c = null;
 

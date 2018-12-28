@@ -24,6 +24,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        this.jLabel4.setVisible(false);
     }
 
     /**
@@ -38,9 +39,10 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -56,12 +58,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField2KeyPressed(evt);
-            }
-        });
-
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +68,15 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Login into BuildMovil");
 
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setForeground(new java.awt.Color(249, 18, 18));
+        jLabel4.setText("Wronge Username/Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,19 +84,24 @@ public class Login extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(98, 98, 98))
+                .addGap(106, 106, 106))
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jButton1)))
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jButton1))
+                            .addComponent(jPasswordField1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel4)))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,71 +116,56 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jButton1)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-            String uname = jTextField1.getText();
-            String pass = jTextField2.getText();
-            int r;
-            BuildMovil bm = new BuildMovil();
-            r = bm.Login(uname,pass);
-               if(r==-1){ 
-                    LoginFailed lf = new LoginFailed();
-                    lf.setVisible(true);
+       BuildMovil bm = new BuildMovil();
+       String user = this.jTextField1.getText();
+       String pass = new String(this.jPasswordField1.getPassword());
+       Utilizador u;
+       
+       if (bm.login(user, pass)){
+           u = bm.getUtilizador(user);
+           
+           switch(u.getTipo()){
+               case "stock" : //menu do cara que gere o stock
+                              break;
+                           
+               case "admin" : {
+                   new AdminMenu(bm, u).setVisible(true);
+                   this.dispose();
+                   break;
                }
-                if(r==1){
-                    LoginSuccessA ls = new LoginSuccessA();
-                    ls.setVisible(true);
-                }
-                if(r==2) {
-                    LoginSuccessS ls = new LoginSuccessS();
-                    ls.setVisible(true);
-                }
-                if(r==3){
-                    LoginSuccessF lf = new LoginSuccessF();
-                    lf.setVisible(true);
-                }
-                dispose();
+               case "comercial" : {
+                   new ColorMenu(bm, u).setVisible(true);
+                   this.dispose();
+                   break;
+               }    
+           }
+       }
+       else
+           this.jLabel4.setVisible(true);
+           this.jTextField1.setText("");
+           this.jPasswordField1.setText("");
+           
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER) {
-            String uname = jTextField1.getText();
-            String pass = jTextField2.getText();
-            int r;
-            BuildMovil bm = new BuildMovil();
-            r = bm.Login(uname,pass);
-               if(r==-1){ 
-                    LoginFailed lf = new LoginFailed();
-                    lf.setVisible(true);
-               }
-                if(r==1){
-                    LoginSuccessA ls = new LoginSuccessA();
-                    ls.setVisible(true);
-                }
-                if(r==2) {
-                    LoginSuccessS ls = new LoginSuccessS();
-                    ls.setVisible(true);
-                }
-                if(r==3){
-                    LoginSuccessF lf = new LoginSuccessF();
-                    lf.setVisible(true);
-                }
-                dispose();
-        }
-    }//GEN-LAST:event_jTextField2KeyPressed
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,7 +207,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
