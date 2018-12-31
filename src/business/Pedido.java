@@ -24,11 +24,14 @@ public class Pedido {
 	private ArrayList<Componente> componentes;
 
 
-	public Pedido() {
-		this.cliente = null;
-		this.pacote = null;
+	public Pedido(int id) {
+		this.id = id;
 		this.componentes = new ArrayList<>();
 		this.datai = LocalDateTime.now();
+	}
+
+	public Pedido() {
+		this.componentes = new ArrayList<>();
 	}
 
 	public Pedido(String estado, float valor, int id, LocalDateTime datai, LocalDateTime dataf, Cliente cliente, Pacote pacote, ArrayList<Componente> componentes) {

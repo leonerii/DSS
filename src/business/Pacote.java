@@ -19,6 +19,11 @@ public class Pacote {
 	private ArrayList<Componente> componentes;
 
 
+	public Pacote(int id) {
+		this.id = id;
+		this.componentes = new ArrayList<>();
+	}
+
 	public Pacote() {
 		this.componentes = new ArrayList<>();
 	}

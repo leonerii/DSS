@@ -19,6 +19,9 @@ public class BuildMovil {
 	private PacoteDAO pacotes;
 	private ComponenteDAO componentes;
 	private PedidoDAO pedidos;
+        private int num_pedidos;
+        private int num_pacotes;
+        private int num_componentes;
 
 	public BuildMovil (){
 		this.clientes = new ClienteDAO();
@@ -26,6 +29,9 @@ public class BuildMovil {
 		this.pacotes = new PacoteDAO();
 		this.componentes = new ComponenteDAO();
 		this.pedidos = new PedidoDAO();
+                this.num_pedidos = 0;
+                this.num_componentes = 0;
+                this.num_pacotes = 0;
 	}
 
 	public void addComponente(int id, String nome, float valor, int peso, int[] dep, int[] inc) {
@@ -98,5 +104,39 @@ public class BuildMovil {
 
 	public void addPacote(Pedido order, int pack) {
 		throw new UnsupportedOperationException();
+	}
+
+    public int getNum_pedidos() {
+        return this.num_pedidos;
+    }
+
+    public void setNum_pedidos(int num_pedidos) {
+        this.num_pedidos = num_pedidos;
+    }
+
+    public int getNum_pacotes() {
+        return this.num_pacotes;
+    }
+
+    public void setNum_pacotes(int num_pacotes) {
+        this.num_pacotes = num_pacotes;
+    }
+
+    public int getNum_componentes() {
+        return this.num_componentes;
+    }
+
+    public void setNum_componentes(int num_componentes) {
+        this.num_componentes = num_componentes;
+    }
+	
+    public Pedido createPedido(){
+		this.num_pedidos++;
+        return new Pedido(this.num_pedidos);
+	}
+
+	public Pacote createPacote(){
+		this.num_pacotes++;
+		return new Pacote(this.num_pacotes);
 	}
 }

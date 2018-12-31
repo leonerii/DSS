@@ -5,6 +5,7 @@
  */
 package gui;
 
+import business.BuildMovil;
 import data_access.ComponenteDAO;
 import business.Componente;
 import business.Pedido;
@@ -19,30 +20,19 @@ import javax.swing.DefaultListModel;
  * @author hasvm
  */
 public class CustomConfiguration extends javax.swing.JFrame {
-
-       public static Pedido p;
-       public static DefaultListModel dm;
-       public static Map<Integer,Componente> cps;
-       ComponenteDAO cdao = new ComponenteDAO();
+    private final BuildMovil bm;
+    private final Pedido pedido;
+    
     /**
      * Creates new form CustomConfiguration
      */
-    public CustomConfiguration(){
+    public CustomConfiguration(BuildMovil bm, Pedido pedido){
         initComponents();
-        p = new Pedido();
-        dm = new DefaultListModel();
-        getComps();
+        this.bm = bm;
+        this.pedido = pedido;
+        
     }
     
-    
-    public void getComps(){
-           try {
-               cps = cdao.values2();
-           } catch (SQLException ex) {
-               Logger.getLogger(CustomConfiguration.class.getName()).log(Level.SEVERE, null, ex);
-           }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -265,41 +255,6 @@ public class CustomConfiguration extends javax.swing.JFrame {
         PackagesMenu pm = new PackagesMenu();
         pm.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomConfiguration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomConfiguration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomConfiguration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomConfiguration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CustomConfiguration().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
