@@ -141,12 +141,12 @@ public class Login extends javax.swing.JFrame {
                            
                case "admin" : {
                    new AdminMenu(bm, u).setVisible(true);
-                   this.dispose();
+                   this.setVisible(false);
                    break;
                }
                case "comercial" : {
                    new StandMenu(bm, u).setVisible(true);
-                   this.dispose();
+                   this.setVisible(false);
                    break;
                }    
            }
