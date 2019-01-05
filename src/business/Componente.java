@@ -17,7 +17,7 @@ public class Componente {
 	private float valor;
 	private int peso;
 	private int id;
-    private int quantidade;
+         private int quantidade;
 	private ArrayList<Componente> dependencias;
 	private ArrayList<Componente> incompativeis;
 
