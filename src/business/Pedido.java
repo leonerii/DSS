@@ -185,8 +185,12 @@ public class Pedido {
 
 	public void addComponente(Componente c) {
 		if(this.check_componentes(c)){
-			this.componentes.add(c);
+			for(Componente comp : c.getDependencias())
+				if(!check_componentes(comp))
+					return;
 		}
+		this.componentes.add(c);
+		this.componentes.addAll(c.getDependencias());
 	}
 
 	public void removeComponente(Componente c) {
@@ -197,10 +201,18 @@ public class Pedido {
 		boolean valid = true;
 
 		for(Componente c : this.componentes)
-			if(c.getIncompativeis().contains(c)){
+			if(c.getIncompativeis().contains(comp)){
 				valid = false;
 				break;
 			}
+
+		if(this.pacote != null && valid){
+			for(Componente c : this.pacote.getComponentes())
+				if(c.getIncompativeis().contains(comp)){
+					valid = false;
+					break;
+				}
+		}
 
 		return valid;
 	}

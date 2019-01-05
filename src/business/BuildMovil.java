@@ -149,4 +149,8 @@ public class BuildMovil {
 	public ArrayList<Componente> getComponentes(){
 		return this.componentes.values();
 	}
+
+	public void confirmPedido(Pedido order){
+		for (Componente comp : order.getComponentes())
+	}
 }
