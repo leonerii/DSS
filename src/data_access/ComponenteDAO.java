@@ -165,20 +165,20 @@ public class ComponenteDAO implements Map<Integer, Componente> {
             stmt.setInt(2,value.getId());
             stmt.setFloat(3,value.getValor());
             stmt.setInt(4, value.getPeso());
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
             for(Componente comp : value.getDependencias()){
                 stmt = con.prepareStatement(query2);
                 stmt.setInt(1, comp.getId());
                 stmt.setInt(2, value.getId());
-                stmt.executeQuery();
+                stmt.executeUpdate();
             }
 
             for(Componente comp : value.getIncompativeis()){
                 stmt = con.prepareStatement(query3);
                 stmt.setInt(1, comp.getId());
                 stmt.setInt(2, value.getId());
-                stmt.executeQuery();
+                stmt.executeUpdate();
             }
 
             stmt.close();

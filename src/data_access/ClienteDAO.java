@@ -143,7 +143,7 @@ public class ClienteDAO implements Map<String, Cliente> {
             stmt.setString(1,value.getNome());
             stmt.setString(2,value.getNif());
             stmt.setString(3,value.getMorada());
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
             PedidoDAO pedido_dao = new PedidoDAO();
 

@@ -126,13 +126,13 @@ public class PacoteDAO implements Map<Integer, Pacote> {
             stmt.setString(1,value.getNome());
             stmt.setInt(2,value.getId());
             stmt.setFloat(3,value.getValor());
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
             for(Componente comp : value.getComponentes()){
                 stmt = con.prepareStatement(query2);
                 stmt.setInt(1, comp.getId());
                 stmt.setInt(2, value.getId());
-                stmt.executeQuery();
+                stmt.executeUpdate();
             }
 
             stmt.close();

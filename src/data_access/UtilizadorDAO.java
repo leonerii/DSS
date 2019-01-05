@@ -93,7 +93,7 @@ public class UtilizadorDAO implements Map<String,Utilizador>{
             stmt.setString(2,value.getPass());
             stmt.setString(3,value.getNome());
             stmt.setString(4,value.getTipo());
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
             stmt.close();
             con.close();
