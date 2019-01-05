@@ -1,6 +1,6 @@
 use dss;
 
-insert into componente values
+insert into Componente values
 ("Motor: 110CV 3.0",1,50,1555.0),
 ("Motor: 100CV 2.0",2,80,1655),
 ("Motor: 130CV 3.5",3,85,1855),
@@ -39,24 +39,24 @@ insert into componente values
 ("Mudanças: Autmáticas e Sequenciais",30,80,1300);
 
 
-insert into cliente values
+insert into Cliente values
 ("Antonio","11111111","Andar de cima"),
 ("Manuel","222222222","Andar de cima"),
 ("Antonio","333333333","Andar de cima");
 
 
-insert into utilizador values
+insert into Utilizador values
 (1,"aa","aa","José"),
 (2,"bb","bb","Amadeu"),
 (3,"cc","cc","Meireles");
 
 
-insert into pacote values
+insert into Pacote values
 ("Sport",19465,1),
 ("Confort",18888,2);
 
 
-insert into incompativel values
+insert into Incompativel values
 (1,2),
 (1,3),
 (1,4),
@@ -96,7 +96,7 @@ insert into incompativel values
 (5,6),
 (5,4);
 
-insert into dependente values
+insert into Dependente values
 
 (1,7),
 (1,18),
@@ -125,11 +125,11 @@ insert into Pacote_Componente values
 (12,3);
 
 
-insert into pedido values
+insert into Pedido values
 (0,"2018-30-12","2018-29-12",1,18888,1,null);
 
 
-insert into pedido_componente values
+insert into Pedido_Componente values
 (2,2),
 (7,2),
 (12,2),

@@ -14,10 +14,10 @@ import java.sql.SQLException;
  * @author leonardo
  */
 public class DBConnection {
-    static final String jdbc_driver = "com.mysql.jdbc.Driver";
-    static final String db_url = "jdbc:mysql://localhost:3306/dss?useSSL=false";
-    static final String user = "root";
-    static final String pass = "Wonder4Night*11";
+    static final String jdbc_driver = "com.mysql.cj.jdbc.Driver";
+    static final String db_url = "jdbc:mysql://localhost:3306/BuildMovil";
+    static final String user = "admin";
+    static final String pass = "admin";
     
     public static Connection connect() throws ClassNotFoundException, SQLException {
         Connection con = null;

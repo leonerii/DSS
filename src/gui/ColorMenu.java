@@ -117,6 +117,11 @@ public class ColorMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int s = jTable1.getSelectedRow();
+        int id = Integer.valueOf(this.jTable1.getModel().getValueAt(s,3).toString());
+        
+        this.bm.addComponente(id, this.pedido);
+        
        /* DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         int s = jTable1.getSelectedRow();
         int id = Integer.valueOf((String) model.getValueAt(s,3).toString());

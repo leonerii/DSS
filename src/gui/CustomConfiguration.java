@@ -24,7 +24,7 @@ public class CustomConfiguration extends javax.swing.JFrame {
         initComponents();
         this.bm = bm;
         this.pedido = pedido;      
-        this.orderID.setText(Integer.toString(bm.getNum_pedidos()));
+        this.orderID.setText("ta bem");
     }    
     
     /**

@@ -135,6 +135,8 @@ public class Login extends javax.swing.JFrame {
        if (bm.login(user, pass)){
            u = bm.getUtilizador(user);
            
+           System.out.println(u);
+           
            switch(u.getTipo()){
                case "stock" : //menu do cara que gere o stock
                               break;

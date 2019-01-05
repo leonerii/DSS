@@ -155,7 +155,7 @@ public class PacoteDAO implements Map<Integer, Pacote> {
             Connection con = DBConnection.connect();
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setInt(1, (int) key);
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
             stmt.close();
             con.close();

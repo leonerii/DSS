@@ -170,7 +170,7 @@ public class ClienteDAO implements Map<String, Cliente> {
             Connection con = DBConnection.connect();
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setString(1, (String) key);
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
             stmt.close();
             con.close();

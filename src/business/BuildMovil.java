@@ -5,6 +5,8 @@
  */
 package business;
 
+import java.util.ArrayList;
+
 import data_access.*;
 
 /**
@@ -142,5 +144,9 @@ public class BuildMovil {
 
 	public void saveCliente(Cliente c){
 		this.clientes.put(c.getNif(), c);
+	}
+	
+	public ArrayList<Componente> getComponentes(){
+		return this.componentes.values();
 	}
 }

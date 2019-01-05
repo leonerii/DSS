@@ -166,9 +166,8 @@ public class UtilizadorDAO implements Map<String,Utilizador>{
             Connection con = DBConnection.connect();
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setInt(1, (int) key);
-            ResultSet rs = stmt.executeQuery();
+            stmt.executeUpdate();
 
-            rs.close();
             stmt.close();
             con.close();
         } catch(SQLException e){
