@@ -128,6 +128,7 @@ public class StandMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         int id = Integer.valueOf(jTextField1.getText());
         Pedido pedido = bm.getPedido(id);
+        System.out.println(pedido);
         new ShowPedido(bm,pedido).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 

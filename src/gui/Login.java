@@ -134,18 +134,16 @@ public class Login extends javax.swing.JFrame {
        
        if (bm.login(user, pass)){
            u = bm.getUtilizador(user);
-           
-           System.out.println(u);
-           
+                      
            switch(u.getTipo()){
                case "stock" : //menu do cara que gere o stock
                               break;
                            
-              /* case "admin" : {
+               case "admin" : {
                    new AdminMenu(bm, u).setVisible(true);
                    this.setVisible(false);
                    break;
-               }*/
+               }
                case "comercial" : {
                    new StandMenu(bm, u).setVisible(true);
                    this.setVisible(false);

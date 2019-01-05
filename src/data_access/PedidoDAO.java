@@ -94,8 +94,8 @@ public class PedidoDAO implements Map<Integer,Pedido>{
                 p.setId(rs.getInt("id"));
                 p.setEstado(rs.getString("estado"));
                 p.setValor(rs.getFloat("valor"));
-                p.setDatai(LocalDateTime.ofInstant(rs.getDate("datai").toInstant(), ZoneId.systemDefault()));
-                p.setDataf(LocalDateTime.ofInstant(rs.getDate("dataf").toInstant(), ZoneId.systemDefault()));
+                p.setDatai(LocalDateTime.ofInstant(rs.getDate("data_inicial").toInstant(), ZoneId.systemDefault()));
+                p.setDataf(LocalDateTime.ofInstant(rs.getDate("data_final").toInstant(), ZoneId.systemDefault()));
                 
                 ClienteDAO cliente_dao = new ClienteDAO();
                 p.setCliente(cliente_dao.get(rs.getString("fk_Cliente_nif")));
