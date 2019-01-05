@@ -35,11 +35,10 @@ public class CustomConfiguration extends javax.swing.JFrame {
         ArrayList<Componente> ret = this.pedido.getComponentes();
         for(Componente c : ret){
             
-                    Object[] row = new Object[4];      
-                    row[0]=c.getNome();
-                    row[1]=c.getValor();
-                    row[2]=c.getPeso();
-                    row[3]=c.getId();
+                    Object[] row = new Object[3];      
+                    row[1]=c.getNome();
+                    row[2]=c.getValor();
+                    row[0]=c.getId();
                     model.addRow(row);
         }
     }
