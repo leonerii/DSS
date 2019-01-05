@@ -6,7 +6,10 @@
 package gui;
 
 import business.BuildMovil;
+import business.Componente;
 import business.Pedido;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,7 +28,21 @@ public class CustomConfiguration extends javax.swing.JFrame {
         this.bm = bm;
         this.pedido = pedido;      
         this.orderID.setText("ta bem");
-    }    
+    }
+
+    public void atualiza(){
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        ArrayList<Componente> ret = this.pedido.getComponentes();
+        for(Componente c : ret){
+            
+                    Object[] row = new Object[4];      
+                    row[0]=c.getNome();
+                    row[1]=c.getValor();
+                    row[2]=c.getPeso();
+                    row[3]=c.getId();
+                    model.addRow(row);
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,8 +53,6 @@ public class CustomConfiguration extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         color = new javax.swing.JButton();
@@ -46,12 +61,11 @@ public class CustomConfiguration extends javax.swing.JFrame {
         order_status = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         orderID = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Custom Configuration");
-
-        jScrollPane2.setViewportView(jList2);
-        jList2.getAccessibleContext().setAccessibleName("");
 
         jButton1.setText("Remove");
 
@@ -77,6 +91,24 @@ public class CustomConfiguration extends javax.swing.JFrame {
 
         orderID.setText("000");
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "NOME", "VALOR"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,10 +132,12 @@ public class CustomConfiguration extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(147, 147, 147)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,13 +154,13 @@ public class CustomConfiguration extends javax.swing.JFrame {
                             .addComponent(order_status))
                         .addGap(38, 38, 38)
                         .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -137,7 +171,7 @@ public class CustomConfiguration extends javax.swing.JFrame {
 
     private void colorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorActionPerformed
         // TODO add your handling code here:
-        ColorMenu cm = new ColorMenu(this.bm,this.pedido);
+        ColorMenu cm = new ColorMenu(this,this.bm,this.pedido);
         cm.setVisible(true);
     }//GEN-LAST:event_colorActionPerformed
 
@@ -148,8 +182,8 @@ public class CustomConfiguration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel orderID;
     private javax.swing.JLabel order_status;
     // End of variables declaration//GEN-END:variables

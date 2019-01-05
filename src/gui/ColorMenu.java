@@ -19,12 +19,15 @@ public class ColorMenu extends javax.swing.JFrame {
 
     private BuildMovil bm;
     private Pedido pedido;
+    private CustomConfiguration cf;
     /**
      * Creates new form ColorMenu
+     * @param cf
      * @param bm
      * @param pedido
      */
-    public ColorMenu(BuildMovil bm, Pedido pedido) {
+    public ColorMenu(CustomConfiguration cf,BuildMovil bm, Pedido pedido) {
+        this.cf = cf;
         this.bm=bm;
         this.pedido=pedido;
         initComponents();
@@ -121,7 +124,7 @@ public class ColorMenu extends javax.swing.JFrame {
         int id = Integer.valueOf(this.jTable1.getModel().getValueAt(s,3).toString());
         
         this.bm.addComponente(id, this.pedido);
-        
+        this.cf.atualiza();
        /* DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         int s = jTable1.getSelectedRow();
         int id = Integer.valueOf((String) model.getValueAt(s,3).toString());
