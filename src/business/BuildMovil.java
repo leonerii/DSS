@@ -5,7 +5,6 @@
  */
 package business;
 
-import java.util.ArrayList;
 import data_access.*;
 
 /**
@@ -23,85 +22,125 @@ public class BuildMovil {
     private int num_componentes;
 
 	public BuildMovil (){
-            this.clientes = new ClienteDAO();
+        this.clientes = new ClienteDAO();
 		this.utilizadores = new UtilizadorDAO();
 		this.pacotes = new PacoteDAO();
 		this.componentes = new ComponenteDAO();
 		this.pedidos = new PedidoDAO();
-                this.num_pedidos = 0;
-                this.num_componentes = 0;
-            this.num_pacotes = 0;
+        this.num_pedidos = 0;
+        this.num_componentes = 0;
+        this.num_pacotes = 0;
 	}
 
 	public void addComponente(int id, Pedido order) {
-		throw new UnsupportedOperationException();
+		Componente comp = this.componentes.get(id);
+		order.addComponente(comp);
+		this.componentes.put(id, comp);
 	}
 
 	public void addComponente(int id, Pacote pack) {
-		throw new UnsupportedOperationException();
+		Componente comp = this.componentes.get(id);
+		pack.addComponente(comp);
 	}
 
 	public void addPacote(Pedido order, int pack) {
-		throw new UnsupportedOperationException();
+		Pacote p = this.pacotes.get(pack);
+		order.addPacote(p);
 	}
 
-	public void addCliente(String nome, String nif, String morada) {
-		throw new UnsupportedOperationException();
+	public boolean addCliente(String nome, String nif, String morada) {
+		Cliente user = new Cliente();
+		user.setMorada(morada);
+		user.setNif(nif);
+		user.setNome(nome);
+		
+		if(this.clientes.containsKey(nif))
+			return false;
+		
+		this.clientes.put(nif, user);
+		return true;
 	}
 
-	public void addUilizador(String nome, String tipo, String user, String pass) {
-		throw new UnsupportedOperationException();
+	public boolean addUilizador(String nome, String tipo, String user, String pass) {
+		Utilizador u = new Utilizador(nome, tipo, user, pass);
+
+		if(this.utilizadores.containsKey(user))
+			return false;
+
+		this.utilizadores.put(user, u);
+		return true;
 	}
 
 	public void removeCliente(String nif) {
-		throw new UnsupportedOperationException();
+		this.clientes.remove(nif);
 	}
 
 	public void removeUtilizador(String user) {
-		throw new UnsupportedOperationException();
+		this.utilizadores.remove(user);
 	}
 
 	public void removePedido(int id) {
-		throw new UnsupportedOperationException();
+		this.pedidos.remove(id);
 	}
 
 	public void removePacote(int id) {
-		throw new UnsupportedOperationException();
+		this.pacotes.remove(id);
 	}
 
 	public Pedido getPedido(int id) {
-		throw new UnsupportedOperationException();
+		return this.pedidos.get(id);
 	}
 
 	public Pacote getPacote(int id) {
-		throw new UnsupportedOperationException();
+		return this.pacotes.get(id);
 	}
 
 	public Cliente getCliente(String nif) {
-		throw new UnsupportedOperationException();
+		return this.clientes.get(nif);
 	}
 
 	public Utilizador getUtilizador(String user) {
-		throw new UnsupportedOperationException();
+		return this.utilizadores.get(user);
 	}
 
 	public Componente getComponente(int id) {
-		throw new UnsupportedOperationException();
+		return this.componentes.get(id);
 	}
 
 	public boolean login(String user, String pass) {
-		throw new UnsupportedOperationException();
+		Utilizador u = this.utilizadores.get(user);
+
+		if(u != null)
+			return u.getPass().equals(pass);
+		
+		return false;
 	}
 
 	public Pacote createPacote() {
-		throw new UnsupportedOperationException();
+		return new Pacote(++this.num_pacotes);
 	}
 
 	public Componente createComponente() {
-		throw new UnsupportedOperationException();
+		return new Componente(++this.num_componentes);
 	}
 
 	public Pedido createPedido() {
-		throw new UnsupportedOperationException();
+		return new Pedido(++this.num_pedidos);
+	}
+
+	public void savePacote(Pacote p){
+		this.pacotes.put(p.getId(), p);
+	}
+
+	public void savePedido(Pedido p){
+		this.pedidos.put(p.getId(), p);
+	}
+
+	public void saveComponente(Componente c){
+		this.componentes.put(c.getId(), c);
+	}
+
+	public void saveCliente(Cliente c){
+		this.clientes.put(c.getNif(), c);
 	}
 }

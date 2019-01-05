@@ -5,9 +5,6 @@
  */
 package business;
 
-import data_access.ClienteDAO;
-import data_access.ComponenteDAO;
-import data_access.PacoteDAO;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -25,9 +22,6 @@ public class Pedido {
 	private Cliente cliente;
 	private Pacote pacote;
 	private ArrayList<Componente> componentes;
-	private PacoteDAO pacote_dao;
-	private ClienteDAO cliente_dao;
-	private ComponenteDAO comp_dao;
 
 
 	public Pedido(int id) {
@@ -205,11 +199,12 @@ public class Pedido {
 	private boolean check_componentes(Componente comp) {
 		boolean valid = true;
 
-		for(Componente c : this.componentes){
-			if(c.getIncompativeis().contains(c) || c.getQuantidade() < 1)
+		for(Componente c : this.componentes)
+			if(c.getIncompativeis().contains(c)){
 				valid = false;
 				break;
-		}
+			}
+
 		return valid;
 	}
 }

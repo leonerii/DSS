@@ -21,7 +21,6 @@ public class Cliente {
 	
 	public Cliente() {
 		this.pedidos = new ArrayList<>();
-
 	}
 
 	public Cliente(String nome, String nif, String morada, ArrayList<Pedido> pedidos) {

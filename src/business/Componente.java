@@ -5,7 +5,6 @@
  */
 package business;
 
-import data_access.ComponenteDAO;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -18,13 +17,18 @@ public class Componente {
 	private float valor;
 	private int peso;
 	private int id;
-        private int quantidade;
+    private int quantidade;
 	private ArrayList<Componente> dependencias;
 	private ArrayList<Componente> incompativeis;
-        private ComponenteDAO comp_dao;
 
 
 	public Componente() {
+		this.dependencias = new ArrayList<>();
+		this.incompativeis = new ArrayList<>();
+	}
+
+	public Componente(int id) {
+		this.id = id;
 		this.dependencias = new ArrayList<>();
 		this.incompativeis = new ArrayList<>();
 	}
