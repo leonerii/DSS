@@ -13,6 +13,7 @@ import java.util.Objects;
  *
  * @author leonardo
  */
+
 public class Pedido {
 	private String estado;
 	private float valor;
@@ -175,9 +176,6 @@ public class Pedido {
 				return;
 		}
 
-		for(Componente comp : p.getComponentes())
-			comp.diminuiQuantidade();
-
 		this.pacote = p;
 	}
 
@@ -188,7 +186,6 @@ public class Pedido {
 	public void addComponente(Componente c) {
 		if(this.check_componentes(c)){
 			this.componentes.add(c);
-			c.diminuiQuantidade();
 		}
 	}
 
