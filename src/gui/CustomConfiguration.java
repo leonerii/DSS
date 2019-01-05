@@ -15,22 +15,17 @@ import business.Pedido;
 public class CustomConfiguration extends javax.swing.JFrame {
     private final BuildMovil bm;
     private final Pedido pedido;
-    private String npedido;
-    
     /**
      * Creates new form CustomConfiguration
      * @param bm
      * @param pedido
-     * @param npedido
      */
-    public CustomConfiguration(BuildMovil bm, Pedido pedido,String npedido){
+    public CustomConfiguration(BuildMovil bm, Pedido pedido){
         initComponents();
         this.bm = bm;
         this.pedido = pedido;      
-        this.orderID.setText(npedido);
-    }
-    
-    
+        this.orderID.setText(Integer.toString(bm.getNum_pedidos()));
+    }    
     
     /**
      * This method is called from within the constructor to initialize the form.

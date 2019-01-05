@@ -93,22 +93,23 @@ public class ColorMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addComponent(jButton1)))
                 .addContainerGap(13, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(165, 165, 165))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+                .addGap(70, 70, 70)
                 .addComponent(jButton1)
-                .addGap(21, 21, 21))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -116,7 +117,7 @@ public class ColorMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+       /* DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         int s = jTable1.getSelectedRow();
         int id = Integer.valueOf((String) model.getValueAt(s,3).toString());
         ArrayList<Componente> incompativeis = bm.calculaIncompativeis(pedido,id);
@@ -132,7 +133,7 @@ public class ColorMenu extends javax.swing.JFrame {
                 }
                 else bm.addComponente(id,pedido);
                 dispose();
-        }
+        }*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
