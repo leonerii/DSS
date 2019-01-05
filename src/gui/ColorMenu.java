@@ -119,7 +119,7 @@ public class ColorMenu extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         int s = jTable1.getSelectedRow();
         int id = Integer.valueOf((String) model.getValueAt(s,3).toString());
-        ArrayList<Componente> incompativeis = bm.calculaIncomp(pedido,id);
+        ArrayList<Componente> incompativeis = bm.calculaIncompativeis(pedido,id);
         if(!incompativeis.isEmpty()){
             Incompativeis inc = new Incompativeis(bm,pedido,incompativeis,id);
             inc.setVisible(true);

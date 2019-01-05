@@ -122,9 +122,9 @@ public class BuildMovil {
             return this.num_pedidos;
         }
 
-        public ArrayList<Componente> calculaIncomp(Pedido pedido,int id){
+        public ArrayList<Componente> calculaIncompativeis(Pedido pedido,int id){
             Componente c = this.componentes.get(id);
-            ArrayList<Componente> ret = new ArrayList();
+            ArrayList<Componente> ret = new ArrayList<>();
             for(Componente a : pedido.getComponentes()){
                 if(a.getIncompativeis().contains(c))
                     ret.add(a);
@@ -177,19 +177,5 @@ public class BuildMovil {
             public Pacote createPacote(){
                     this.num_pacotes++;
                     return new Pacote(this.num_pacotes);
-            }
-
-        public static void main(String[] args){
-          BuildMovil bm = new BuildMovil();
-            
-            Pedido p = bm.createPedido();
-            
-          /*  bm.addComponente(33, p);
-            ArrayList<Componente> ret = new ArrayList();
-            ret = bm.calculaIncomp(p,34);
-            for(Componente c : ret){
-                System.out.println(c.getId());
-            }*/
-    }      
-       
+            }            
 }
