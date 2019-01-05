@@ -5,6 +5,9 @@
  */
 package business;
 
+import data_access.ClienteDAO;
+import data_access.ComponenteDAO;
+import data_access.PacoteDAO;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,6 +25,9 @@ public class Pedido {
 	private Cliente cliente;
 	private Pacote pacote;
 	private ArrayList<Componente> componentes;
+	private PacoteDAO pacote_dao;
+	private ClienteDAO cliente_dao;
+	private ComponenteDAO comp_dao;
 
 
 	public Pedido(int id) {
@@ -144,11 +150,6 @@ public class Pedido {
 		return this;
 	}
 
-	public Pedido componentes(ArrayList<Componente> componentes) {
-		this.componentes = componentes;
-		return this;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (o == this)
@@ -179,6 +180,10 @@ public class Pedido {
 			if(!this.check_componentes(comp))
 				return;
 		}
+
+		for(Componente comp : p.getComponentes())
+			comp.diminuiQuantidade();
+
 		this.pacote = p;
 	}
 
@@ -187,8 +192,10 @@ public class Pedido {
 	}
 
 	public void addComponente(Componente c) {
-		if(this.check_componentes(c))
+		if(this.check_componentes(c)){
 			this.componentes.add(c);
+			c.diminuiQuantidade();
+		}
 	}
 
 	public void removeComponente(Componente c) {
@@ -199,7 +206,7 @@ public class Pedido {
 		boolean valid = true;
 
 		for(Componente c : this.componentes){
-			if(c.getIncompativeis().contains(c))
+			if(c.getIncompativeis().contains(c) || c.getQuantidade() < 1)
 				valid = false;
 				break;
 		}

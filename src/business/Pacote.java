@@ -5,6 +5,7 @@
  */
 package business;
 
+import data_access.ComponenteDAO;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ public class Pacote {
 	private float valor;
 	private String nome;
 	private ArrayList<Componente> componentes;
+        private ComponenteDAO comp_dao;
 
 
 	public Pacote(int id) {
@@ -89,6 +91,10 @@ public class Pacote {
 	}
 
 	public void addComponente(Componente comp){
+		for(Componente c : this.componentes)
+			if(comp.getIncompativeis().contains(c))
+				return;
+
 		this.componentes.add(comp);
 	}
 

@@ -2,3 +2,4 @@
 **/*.class
 **/*private*
 /build/
+/dist/
