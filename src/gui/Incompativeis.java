@@ -15,33 +15,33 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hasvm
  */
-public class Extra extends javax.swing.JFrame {
+public class Incompativeis extends javax.swing.JFrame {
 
     BuildMovil bm;
     Pedido pedido;
     int id;
-    ArrayList<Componente> extra;
+    ArrayList<Componente> incompativeis;
     /**
-     * Creates new form Extra
+     * Creates new form Incompativeis
      * @param bm
      * @param pedido
-     * @param extra
+     * @param incompativeis
      * @param id
 
      */
-    public Extra(BuildMovil bm, Pedido pedido,ArrayList<Componente> extra, int id) {
+    public Incompativeis(BuildMovil bm, Pedido pedido,ArrayList<Componente> incompativeis,int id) {
         this.bm = bm;
         this.pedido = pedido;
-        this.extra =extra;
-        this.id=id;
+        this.incompativeis = incompativeis;
         initComponents();
-        showExtra(extra);
+        this.id=id;
+        showIncompativeis(incompativeis);
     }
     
     
-    private void showExtra(ArrayList<Componente> extra){
+    private void showIncompativeis(ArrayList<Componente> incompativeis){
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-            for(Componente c : extra){
+            for(Componente c : incompativeis){
                     Object[] row = new Object[3];      
                     row[0]=c.getNome();
                     row[1]=c.getValor();
@@ -65,7 +65,7 @@ public class Extra extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Extras");
+        setTitle("Incompativeis");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,7 +92,7 @@ public class Extra extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Não adicionar");
+        jButton2.setText("Não Adicionar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -108,38 +108,42 @@ public class Extra extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(13, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(43, 43, 43)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(68, 68, 68))
+                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addGap(27, 27, 27))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        bm.addComponentes(pedido,extra);
-        bm.addComponente(id, pedido);
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        bm.removeComponentes(incompativeis,pedido);
+        ArrayList<Componente> extra = bm.calculaExtra(pedido,id);
+                if(!extra.isEmpty()){
+                    Extra ext = new Extra(bm,pedido,extra,id);
+                    ext.setVisible(true);
+                    dispose();
+                }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

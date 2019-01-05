@@ -6,7 +6,6 @@
 package business;
 
 import java.util.ArrayList;
-
 import data_access.*;
 
 /**
@@ -83,7 +82,7 @@ public class BuildMovil {
 	}
 
 	public Utilizador getUtilizador(String user) {
-		throw new UnsupportedOperationException();
+		return this.utilizadores.get(user);
 	}
 
 	public Componente getComponente(int id) {
@@ -91,52 +90,106 @@ public class BuildMovil {
 	}
 
 	public void addComponente(int id, Pedido order) {
-		throw new UnsupportedOperationException();
+		Componente c = this.componentes.get(id);
+                order.addComponente(c);
 	}
 
 	public void addComponente(int id, Pacote pack) {
 		throw new UnsupportedOperationException();
 	}
+        
+        public void removeComponente(int id,Pedido pedido){
+            Componente c = this.componentes.get(id);
+            pedido.removeComponente(c);
+        }
+        
+        public void removeComponentes(ArrayList<Componente> inc,Pedido pedido){
+            for(Componente c : inc){
+              pedido.removeComponente(c);
+            }
+        }
 
 	public boolean login(String user, String pass) {
-		throw new UnsupportedOperationException();
+		Utilizador u = this.utilizadores.get(user);
+                return (user.equals(u.getUser()) && pass.equals(u.getPass()));
 	}
 
 	public void addPacote(Pedido order, int pack) {
 		throw new UnsupportedOperationException();
 	}
 
-    public int getNum_pedidos() {
-        return this.num_pedidos;
-    }
+        public int getNum_pedidos() {
+            return this.num_pedidos;
+        }
 
-    public void setNum_pedidos(int num_pedidos) {
-        this.num_pedidos = num_pedidos;
-    }
+        public ArrayList<Componente> calculaIncomp(Pedido pedido,int id){
+            Componente c = this.componentes.get(id);
+            ArrayList<Componente> ret = new ArrayList();
+            for(Componente a : pedido.getComponentes()){
+                if(a.getIncompativeis().contains(c))
+                    ret.add(a);
+            }
+            return ret;
+        }
+        
+        public ArrayList<Componente> calculaExtra(Pedido pedido,int id){
+            Componente c = this.componentes.get(id);
+            return c.getDependencias();
+        }
+        
+        public void addComponentes(Pedido pedido,ArrayList<Componente> extra){
+            for(Componente c : extra){
+                pedido.addComponente(c);
+            }
+        }
+        
+        
 
-    public int getNum_pacotes() {
-        return this.num_pacotes;
-    }
+        public void setNum_pedidos(int num_pedidos) {
+            this.num_pedidos = num_pedidos;
+        }
 
-    public void setNum_pacotes(int num_pacotes) {
-        this.num_pacotes = num_pacotes;
-    }
+        public int getNum_pacotes() {
+            return this.num_pacotes;
+        }
 
-    public int getNum_componentes() {
-        return this.num_componentes;
-    }
+        public void setNum_pacotes(int num_pacotes) {
+            this.num_pacotes = num_pacotes;
+        }
 
-    public void setNum_componentes(int num_componentes) {
-        this.num_componentes = num_componentes;
-    }
-	
-    public Pedido createPedido(){
-		this.num_pedidos++;
-        return new Pedido(this.num_pedidos);
-	}
+        public int getNum_componentes() {
+            return this.num_componentes;
+        }
 
-	public Pacote createPacote(){
-		this.num_pacotes++;
-		return new Pacote(this.num_pacotes);
-	}
+        public ArrayList<Componente> getComponentes() {
+            return this.componentes.values();
+        }
+
+        public void setNum_componentes(int num_componentes) {
+            this.num_componentes = num_componentes;
+        }
+
+        public Pedido createPedido(){
+                    this.num_pedidos++;
+            return new Pedido(this.num_pedidos);
+            }
+
+            public Pacote createPacote(){
+                    this.num_pacotes++;
+                    return new Pacote(this.num_pacotes);
+            }
+
+        public static void main(String[] args){
+          BuildMovil bm = new BuildMovil();
+            
+            Pedido p = bm.createPedido();
+            
+          /*  bm.addComponente(33, p);
+            ArrayList<Componente> ret = new ArrayList();
+            ret = bm.calculaIncomp(p,34);
+            for(Componente c : ret){
+                System.out.println(c.getId());
+            }*/
+    }      
+       
 }

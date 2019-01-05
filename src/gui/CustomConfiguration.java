@@ -15,16 +15,22 @@ import business.Pedido;
 public class CustomConfiguration extends javax.swing.JFrame {
     private final BuildMovil bm;
     private final Pedido pedido;
+    private String npedido;
     
     /**
      * Creates new form CustomConfiguration
+     * @param bm
+     * @param pedido
+     * @param npedido
      */
-    public CustomConfiguration(BuildMovil bm, Pedido pedido){
+    public CustomConfiguration(BuildMovil bm, Pedido pedido,String npedido){
         initComponents();
         this.bm = bm;
-        this.pedido = pedido;
-        
+        this.pedido = pedido;      
+        this.orderID.setText(npedido);
     }
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,22 +45,14 @@ public class CustomConfiguration extends javax.swing.JFrame {
         jList2 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        tires = new javax.swing.JButton();
         color = new javax.swing.JButton();
-        engine = new javax.swing.JButton();
-        rims = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        mirrors = new javax.swing.JButton();
-        seats = new javax.swing.JButton();
-        gears = new javax.swing.JButton();
-        packs = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         order_status = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         orderID = new javax.swing.JLabel();
-        conf_otima = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Custom Configuration");
 
         jScrollPane2.setViewportView(jList2);
@@ -64,13 +62,6 @@ public class CustomConfiguration extends javax.swing.JFrame {
 
         jButton2.setText("Confirm Order");
 
-        tires.setText("Tires");
-        tires.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tiresActionPerformed(evt);
-            }
-        });
-
         color.setText("Color");
         color.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,50 +69,8 @@ public class CustomConfiguration extends javax.swing.JFrame {
             }
         });
 
-        engine.setText("Engine");
-        engine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                engineActionPerformed(evt);
-            }
-        });
-
-        rims.setText("Rims");
-        rims.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rimsActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel1.setText("Added Itens");
-
-        mirrors.setText("Mirrors");
-        mirrors.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mirrorsActionPerformed(evt);
-            }
-        });
-
-        seats.setText("Seats");
-        seats.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                seatsActionPerformed(evt);
-            }
-        });
-
-        gears.setText("Gears");
-        gears.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gearsActionPerformed(evt);
-            }
-        });
-
-        packs.setText("Packages");
-        packs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                packsActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel5.setText("Order Status:");
@@ -133,8 +82,6 @@ public class CustomConfiguration extends javax.swing.JFrame {
 
         orderID.setText("000");
 
-        conf_otima.setText("OPTIMA");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,12 +92,6 @@ public class CustomConfiguration extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(mirrors, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(packs, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(conf_otima, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(orderID))
@@ -158,22 +99,11 @@ public class CustomConfiguration extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(order_status))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(engine, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(rims, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(seats, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(gears, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(tires, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(139, 139, 139)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(40, 40, 40)
+                .addGap(147, 147, 147)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,21 +124,8 @@ public class CustomConfiguration extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(order_status))
                         .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(engine, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rims, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(gears, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(seats, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tires, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(mirrors, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(packs, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(conf_otima, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                        .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
@@ -225,71 +142,21 @@ public class CustomConfiguration extends javax.swing.JFrame {
 
     private void colorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorActionPerformed
         // TODO add your handling code here:
-        ColorMenu cm = new ColorMenu();
+        ColorMenu cm = new ColorMenu(this.bm,this.pedido);
         cm.setVisible(true);
     }//GEN-LAST:event_colorActionPerformed
 
-    private void engineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_engineActionPerformed
-        // TODO add your handling code here:
-        EngineMenu em = new EngineMenu();
-        em.setVisible(true);
-    }//GEN-LAST:event_engineActionPerformed
-
-    private void rimsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimsActionPerformed
-        // TODO add your handling code here:
-        RimsMenu rm = new RimsMenu();
-        rm.setVisible(true);
-    }//GEN-LAST:event_rimsActionPerformed
-
-    private void seatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seatsActionPerformed
-        // TODO add your handling code here:
-        SeatsMenu sm = new SeatsMenu();
-        sm.setVisible(true);
-    }//GEN-LAST:event_seatsActionPerformed
-
-    private void gearsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gearsActionPerformed
-        // TODO add your handling code here:
-        GearsMenu gm = new GearsMenu();
-        gm.setVisible(true);
-    }//GEN-LAST:event_gearsActionPerformed
-
-    private void tiresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiresActionPerformed
-        // TODO add your handling code here:
-        TiresMenu tm = new TiresMenu();
-        tm.setVisible(true);
-    }//GEN-LAST:event_tiresActionPerformed
-
-    private void mirrorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mirrorsActionPerformed
-        // TODO add your handling code here:
-        MirrorsMenu mm = new MirrorsMenu();
-        mm.setVisible(true);
-    }//GEN-LAST:event_mirrorsActionPerformed
-
-    private void packsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_packsActionPerformed
-        // TODO add your handling code here:
-        PackagesMenu pm = new PackagesMenu();
-        pm.setVisible(true);
-    }//GEN-LAST:event_packsActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton color;
-    private javax.swing.JButton conf_otima;
-    private javax.swing.JButton engine;
-    private javax.swing.JButton gears;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
-    public static javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton mirrors;
     private javax.swing.JLabel orderID;
     private javax.swing.JLabel order_status;
-    private javax.swing.JButton packs;
-    private javax.swing.JButton rims;
-    private javax.swing.JButton seats;
-    private javax.swing.JButton tires;
     // End of variables declaration//GEN-END:variables
 
 }

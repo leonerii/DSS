@@ -5,12 +5,10 @@
  */
 package gui;
 
-import data_access.ComponenteDAO;
+import business.BuildMovil;
 import business.Componente;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import business.Pedido;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,38 +17,37 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ColorMenu extends javax.swing.JFrame {
 
+    private BuildMovil bm;
+    private Pedido pedido;
     /**
-     * Creates new form Color
+     * Creates new form ColorMenu
+     * @param bm
+     * @param pedido
      */
-    public ColorMenu() {
+    public ColorMenu(BuildMovil bm, Pedido pedido) {
+        this.bm=bm;
+        this.pedido=pedido;
         initComponents();
-        showColors();
+        showCor();
     }
 
-    public void showColors(){
-        ComponenteDAO dao = new ComponenteDAO();
-        Map<Integer,Componente> cps = null;
-        Componente cca;
-        try {
-            cps = dao.valuesTipo(1);
-        } catch (Exception ex) {
-            Logger.getLogger(ColorMenu.class.getName()).log(Level.SEVERE, null, ex);
+        private void showCor(){
+            ArrayList<Componente> cps;
+            DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+            cps = bm.getComponentes();
+            for(Componente c : cps){
+               String[] divide = c.getNome().split(" ");
+                if(divide[0].equals("Cor:")){
+                    Object[] row = new Object[4];      
+                    row[0]=c.getNome();
+                    row[1]=c.getValor();
+                    row[2]=c.getPeso();
+                    row[3]=c.getId();
+                    model.addRow(row);
+                }
+            }
         }
         
-        Set<Integer> aux = cps.keySet();
-        DefaultTableModel model = (DefaultTableModel)jcolormenu.getModel();
-        Object[] row = new Object[4];
-        for(int c : aux){
-            cca = cps.get(c);
-            row[0]=cca.getNome();
-            row[1]=cca.getDesc();
-            row[2]=cca.getPreco();
-            row[0]=cca.getRating();
-            model.addRow(row);
-        }
-    
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,18 +58,17 @@ public class ColorMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jcolormenu = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Color");
 
-        jcolormenu.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nome", "Descrição", "Preço", "Rating"
+                "Nome", "Valor", "Peso", "id"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -83,76 +79,66 @@ public class ColorMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jcolormenu);
+        jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Select");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jButton1)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(165, 165, 165))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
                 .addComponent(jButton1)
-                .addGap(30, 30, 30))
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ColorMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ColorMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ColorMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ColorMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        int s = jTable1.getSelectedRow();
+        int id = Integer.valueOf((String) model.getValueAt(s,3).toString());
+        ArrayList<Componente> incompativeis = bm.calculaIncomp(pedido,id);
+        if(!incompativeis.isEmpty()){
+            Incompativeis inc = new Incompativeis(bm,pedido,incompativeis,id);
+            inc.setVisible(true);
         }
-        //</editor-fold>
-        //</editor-fold>
+        else {
+                ArrayList<Componente> extra = bm.calculaExtra(pedido,id);
+                if(!extra.isEmpty()){
+                    Extra ext = new Extra(bm,pedido,extra,id);
+                    ext.setVisible(true);
+                }
+                else bm.addComponente(id,pedido);
+                dispose();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ColorMenu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jcolormenu;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

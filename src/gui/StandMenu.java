@@ -19,6 +19,8 @@ public class StandMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form StandMenu
+     * @param bm
+     * @param user
      */
     public StandMenu(BuildMovil bm, Utilizador user) {
         initComponents();
@@ -119,8 +121,6 @@ public class StandMenu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        OptimalConfigurationMenu cc = new OptimalConfigurationMenu();
-        cc.setVisible(true);
     
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -133,7 +133,8 @@ public class StandMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Pedido p = bm.createPedido();
-        new CustomConfiguration(this.bm, p).setVisible(true);
+        String npedido = Integer.toString(bm.getNum_pedidos());
+        new CustomConfiguration(this.bm, p,npedido).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
